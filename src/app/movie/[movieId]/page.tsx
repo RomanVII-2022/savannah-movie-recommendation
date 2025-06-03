@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function SingleMovie() {
   return (
-    <div className="w-full h-full bg-[url(/poster.jpeg)] bg-no-repeat bg-cover">
+    <div className="w-full h-screen bg-[url(/poster.jpeg)] bg-no-repeat bg-cover">
       <div className="bg-black/50 w-full h-screen">
         <div className="flex justify-between px-10 py-5">
           <Button variant="secondary" className="size-12 bg-tertiary cursor-pointer">
@@ -14,7 +14,7 @@ export default function SingleMovie() {
           </Button>
           <UserAction />
         </div>
-        <div className="p-20 h-[94vh] bg-black/50">
+        <div className="p-20 h-screen bg-black/50">
           <div className="space-y-10">
             <p className="text-3xl font-bold text-center text-white">Sinners</p>
             <div className="flex justify-between items-center text-white">
