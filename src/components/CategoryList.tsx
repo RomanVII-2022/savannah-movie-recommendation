@@ -1,16 +1,11 @@
 import React from 'react';
-import Image from 'next/image';
+import MovieItem from './MovieItem';
 
 export default function CategoryList() {
   return (
-    <div className="grid grid-cols-8 gap-5 overflow-y-auto flex-auto pr-3 pb-5">
+    <div className="px-5 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-10 gap-5 overflow-y-auto flex-auto pb-5">
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(item => (
-        <div key={item} className="w-full cursor-pointer rounded-lg group">
-          <div className="relative w-full h-[300px] rounded-lg group-hover:border-2">
-            <Image src="/poster.jpeg" alt="movie poster" fill className="object-cover rounded-lg" />
-          </div>
-          <p className="text-center text-white text-lg font-semibold my-3">Sinners</p>
-        </div>
+        <MovieItem key={item} />
       ))}
     </div>
   );

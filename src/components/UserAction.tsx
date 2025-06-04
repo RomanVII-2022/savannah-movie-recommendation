@@ -22,7 +22,7 @@ function UserAction() {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
-        side={'left'}
+        side={'bottom'}
         align="start"
         sideOffset={4}
       >
