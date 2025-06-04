@@ -6,10 +6,10 @@ import Link from 'next/link';
 function CategoryHeader() {
   return (
     <div className="mb-5 flex justify-between">
-      <p className="text-white text-2xl font-semibold">Popular Movies</p>
+      <p className="text-white text-lg md:text-2xl font-medium">Popular Movies</p>
       <Button
         variant="secondary"
-        className="bg-tertiary cursor-pointer text-muted-foreground text-lg font-medium hover:text-black"
+        className="bg-transparent cursor-pointer text-muted-foreground font-medium hover:text-black"
         asChild
       >
         <Link href="/discover">

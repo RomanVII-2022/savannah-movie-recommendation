@@ -11,7 +11,7 @@ import {
 
 export default function MovieFilters() {
   return (
-    <div className="text-white flex items-center gap-5 py-5">
+    <div className="text-white flex flex-col md:flex-row items-start md:items-center gap-5 p-5">
       <Select>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Select category" />
