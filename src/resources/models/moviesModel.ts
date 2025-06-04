@@ -21,6 +21,7 @@ class MovieModel {
     category: string,
     pageParam: number
   ): Promise<MovieResponseType> {
+    console.log('url called', `/${category}?page=${pageParam}`);
     const response = await baseAxiosInstance.get<MovieResponseType>(
       `/${category}?page=${pageParam}`,
       {

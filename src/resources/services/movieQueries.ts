@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useQueries, useQuery } from '@tanstack/react-query';
 import MovieModel from '../models/moviesModel';
 import { ParamValue } from 'next/dist/server/request/params';
+import { useMemo } from 'react';
 
 export const useFetchMovieBoardList = () => {
   const categories = ['now_playing', 'top_rated', 'popular'];
@@ -30,11 +31,16 @@ export const useFetchMovieCategoryList = (category: string) => {
       return nextPage;
     },
   });
+
+  const combinedResults = useMemo(() => {
+    return result.data?.pages.flatMap(page => page.results) || [];
+  }, [result.data]);
   return {
-    data: result.data?.pages[0],
+    data: combinedResults,
     fetchNextPage: result.fetchNextPage,
     isFetchingNextPage: result.isFetchingNextPage,
     hasNextPage: result.hasNextPage,
+    isFetching: result.isFetching,
   };
 };
 
