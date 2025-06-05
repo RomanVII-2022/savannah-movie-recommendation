@@ -1,10 +1,21 @@
 'use client';
 import CategoryHeader from '@/components/CategoryHeader';
+import MovieError from '@/components/MovieError';
 import MovieItem from '@/components/MovieItem';
+import MovieSkeleton from '@/components/MovieSkeleton';
 import { useFetchMovieBoardList } from '@/resources/services/movieQueries';
 
 export default function Home() {
-  const { categoryItems } = useFetchMovieBoardList();
+  const { categoryItems, categoryPending, categoryIsError } = useFetchMovieBoardList();
+
+  if (categoryPending) {
+    return <MovieSkeleton />;
+  }
+
+  if (categoryIsError) {
+    return <MovieError />;
+  }
+
   return (
     <div className="px-5">
       {categoryItems.map(category => (

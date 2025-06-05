@@ -7,11 +7,13 @@ import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { useFetchMovieDetails } from '@/resources/services/movieQueries';
 import { useParams, useRouter } from 'next/navigation';
+import MovieSkeleton from '@/components/MovieSkeleton';
+import MovieError from '@/components/MovieError';
 
 export default function SingleMovie() {
   const { movieId } = useParams();
   const router = useRouter();
-  const { data: movieDetails } = useFetchMovieDetails(movieId);
+  const { data: movieDetails, isPending, isError, error } = useFetchMovieDetails(movieId);
 
   return (
     <div
@@ -36,68 +38,74 @@ export default function SingleMovie() {
           </Button>
           <UserAction />
         </div>
-        <div className="px-15 py-10 bg-black/50 grid lg:grid-cols-2 flex-1 gap-5">
-          <div className="space-y-7 mb-5">
-            <p className="text-3xl font-bold text-white">{movieDetails?.title}</p>
-            <div className="flex items-center text-white gap-10">
-              <p className="text-lg font-semibold">{movieDetails?.runtime} mins</p>
-              <p className="text-lg font-semibold">{movieDetails?.release_date.split('-')[0]}</p>
-              <div className="flex gap-3">
-                <p className="text-lg font-semibold">
-                  {movieDetails?.vote_average.toString().substring(0, 3)}
-                </p>
-                <Image src="/rate.png" alt="imdb logo used for rating" width={50} height={50} />
+        {isPending ? (
+          <MovieSkeleton />
+        ) : isError ? (
+          <MovieError message={error.message} />
+        ) : (
+          <div className="px-15 py-10 bg-black/50 grid lg:grid-cols-2 flex-1 gap-5">
+            <div className="space-y-7 mb-5">
+              <p className="text-3xl font-bold text-white">{movieDetails?.title}</p>
+              <div className="flex items-center text-white gap-10">
+                <p className="text-lg font-semibold">{movieDetails?.runtime} mins</p>
+                <p className="text-lg font-semibold">{movieDetails?.release_date.split('-')[0]}</p>
+                <div className="flex gap-3">
+                  <p className="text-lg font-semibold">
+                    {movieDetails?.vote_average.toString().substring(0, 3)}
+                  </p>
+                  <Image src="/rate.png" alt="imdb logo used for rating" width={50} height={50} />
+                </div>
               </div>
-            </div>
-            <div className="space-y-3">
-              <p className="text-lg font-semibold text-muted-foreground">GENRES</p>
-              <div className="flex flex-wrap gap-5">
-                {movieDetails?.genres.map(genre => (
-                  <Badge key={genre.id} variant="secondary" className="size-8 w-auto text-lg">
-                    {genre.name}
-                  </Badge>
-                ))}
+              <div className="space-y-3">
+                <p className="text-lg font-semibold text-muted-foreground">GENRES</p>
+                <div className="flex flex-wrap gap-5">
+                  {movieDetails?.genres.map(genre => (
+                    <Badge key={genre.id} variant="secondary" className="size-8 w-auto text-lg">
+                      {genre.name}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-lg font-semibold text-muted-foreground">PRODUCTION</p>
+                <div className="flex flex-wrap gap-5 ">
+                  {movieDetails?.production_companies.map(company => (
+                    <Badge key={company.id} variant="secondary" className="size-8 w-auto text-lg">
+                      {company.name}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-lg font-semibold text-muted-foreground">LANGUEGES</p>
+                <div className="flex flex-wrap gap-5">
+                  {movieDetails?.spoken_languages.map(language => (
+                    <Badge
+                      key={language.english_name}
+                      variant="secondary"
+                      className="size-8 w-auto text-lg"
+                    >
+                      {language.name}
+                    </Badge>
+                  ))}
+                </div>
               </div>
             </div>
 
             <div className="space-y-3">
-              <p className="text-lg font-semibold text-muted-foreground">PRODUCTION</p>
-              <div className="flex flex-wrap gap-5 ">
-                {movieDetails?.production_companies.map(company => (
-                  <Badge key={company.id} variant="secondary" className="size-8 w-auto text-lg">
-                    {company.name}
-                  </Badge>
-                ))}
+              <p className="text-lg font-semibold text-muted-foreground">TAGLINE</p>
+              <div className="flex gap-5">
+                <p className="text-lg text-white">{movieDetails?.tagline}</p>
               </div>
-            </div>
-
-            <div className="space-y-3">
-              <p className="text-lg font-semibold text-muted-foreground">LANGUEGES</p>
-              <div className="flex flex-wrap gap-5">
-                {movieDetails?.spoken_languages.map(language => (
-                  <Badge
-                    key={language.english_name}
-                    variant="secondary"
-                    className="size-8 w-auto text-lg"
-                  >
-                    {language.name}
-                  </Badge>
-                ))}
+              <p className="text-lg font-semibold text-muted-foreground">SUMMARY</p>
+              <div className="flex gap-5">
+                <p className="text-lg text-white">{movieDetails?.overview}</p>
               </div>
             </div>
           </div>
-
-          <div className="space-y-3">
-            <p className="text-lg font-semibold text-muted-foreground">TAGLINE</p>
-            <div className="flex gap-5">
-              <p className="text-lg text-white">{movieDetails?.tagline}</p>
-            </div>
-            <p className="text-lg font-semibold text-muted-foreground">SUMMARY</p>
-            <div className="flex gap-5">
-              <p className="text-lg text-white">{movieDetails?.overview}</p>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
