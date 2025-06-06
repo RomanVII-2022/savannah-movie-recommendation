@@ -63,3 +63,11 @@ export const useFetchMovieDetails = (id: ParamValue) => {
   });
   return results;
 };
+
+export const useSearchMovies = (searchQuery: string) => {
+  const results = useQuery({
+    queryKey: ['searchMovie', searchQuery],
+    queryFn: () => MovieModel.searchMovies(searchQuery),
+  });
+  return results;
+};
