@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { LogIn, LogOut, UserRound } from 'lucide-react';
 import {
   DropdownMenu,
@@ -12,23 +12,22 @@ import {
 } from './ui/dropdown-menu';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { Button } from './ui/button';
-import { redirect } from 'next/navigation';
 
 function UserAction() {
-  const isLoggedIn = false;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = async () => {
-    const response = await fetch('/api/auth');
+    const response = await fetch('/api/auth', { cache: 'no-store' });
     const tokenData = await response.json();
 
-    console.log('token data ', tokenData.data.request_token);
+    const requestToken = tokenData.data.request_token;
+    if (!requestToken) throw new Error('Failed to get request token');
 
-    if (!tokenData.data.request_token) {
-      throw new Error('Failed to get request token');
-    }
+    const currentPath = window.location.pathname;
+    const redirectUrl = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${encodeURIComponent(`http://localhost:3000/api/callback?state=${currentPath}`)}`;
 
-    const redirectUrl = `https://www.themoviedb.org/authenticate/${tokenData.data.request_token}?redirect_to=http://localhost:3000/api/callback`;
-    redirect(redirectUrl);
+    window.location.href = redirectUrl;
+    setIsLoggedIn(false);
   };
 
   return (
