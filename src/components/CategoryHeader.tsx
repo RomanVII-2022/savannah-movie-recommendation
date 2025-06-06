@@ -12,8 +12,8 @@ function CategoryHeader({ title, slug }: { title: string; slug: string }) {
         className="bg-transparent cursor-pointer text-muted-foreground font-medium hover:text-black"
         asChild
       >
-        <Link href={`/discover?category=${slug}`}>
-          <p>See All</p>
+        <Link href={`/discover?category=${slug}`} data-testid="category-link">
+          See All
           <ChevronRightIcon />
         </Link>
       </Button>

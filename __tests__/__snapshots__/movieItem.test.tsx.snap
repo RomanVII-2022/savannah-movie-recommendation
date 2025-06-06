@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieItem Component matches snapshot with movie details 1`] = `
+<DocumentFragment>
+  <a
+    href="/movie/1233413"
+  >
+    <div
+      class="relative w-full h-[180px] md:h-[200px] lg:h-[220px] 2xl:h-[300px] rounded-lg group-hover:border-2"
+      data-testid="image-container"
+    >
+      <img
+        alt="movie poster"
+        class="object-cover rounded-lg"
+        data-testid="movie-image"
+        src="https://image.tmdb.org/t/p/original/yqsCU5XOP2mkbFamzAqbqntmfav.jpg"
+      />
+    </div>
+    <p
+      class="text-center text-white text-lg font-medium my-3"
+      data-testid="movie-title"
+    >
+      Sinners
+    </p>
+  </a>
+</DocumentFragment>
+`;
+
+exports[`MovieItem Component matches snapshot without details 1`] = `
+<DocumentFragment>
+  <a
+    href="/movie/undefined"
+  >
+    <div
+      class="relative w-full h-[180px] md:h-[200px] lg:h-[220px] 2xl:h-[300px] rounded-lg group-hover:border-2"
+      data-testid="image-container"
+    >
+      <img
+        alt="movie poster"
+        class="object-cover rounded-lg"
+        data-testid="movie-image"
+        src="https://image.tmdb.org/t/p/originalundefined"
+      />
+    </div>
+    <p
+      class="text-center text-white text-lg font-medium my-3"
+      data-testid="movie-title"
+    />
+  </a>
+</DocumentFragment>
+`;
