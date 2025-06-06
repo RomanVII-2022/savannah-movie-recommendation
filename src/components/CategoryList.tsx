@@ -11,10 +11,10 @@ import MovieError from './MovieError';
 export default function CategoryList() {
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category') || '';
-  const { data, fetchNextPage, hasNextPage, isFetching, ispending, isError, error } =
+  const { data, fetchNextPage, hasNextPage, isFetching, isPending, isError, error } =
     useFetchMovieCategoryList(categorySlug);
 
-  if (ispending) {
+  if (isPending) {
     return <MovieSkeleton />;
   }
 
