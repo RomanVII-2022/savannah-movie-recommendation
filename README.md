@@ -28,6 +28,10 @@
 
 ![home screen photo](moviedetails.png)
 
+### Library
+
+![library screen photo](lib.png)
+
 ## Demo link
 
 <a href="https://savannah-movie-recommendation.vercel.app/">https://savannah-movie-recommendation.vercel.app/</a>
@@ -48,7 +52,7 @@
 
 4.  Run the project
 
-        npm run dev*
+        npm run dev
 
 5.  Build Docker image (optional)
 
