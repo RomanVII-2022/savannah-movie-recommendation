@@ -45,7 +45,8 @@ describe('CategoryList', () => {
 
   it('renders loading state', () => {
     mockUseFetchMovieCategoryList.mockReturnValue({
-      ispending: true,
+      isPending: true,
+      isError: false,
     });
 
     render(<CategoryList />);
@@ -54,7 +55,7 @@ describe('CategoryList', () => {
 
   it('renders error state', () => {
     mockUseFetchMovieCategoryList.mockReturnValue({
-      ispending: false,
+      isPending: false,
       isError: true,
       error: { message: 'Failed to fetch' },
     });
@@ -72,7 +73,7 @@ describe('CategoryList', () => {
     const fetchNextPage = jest.fn();
 
     mockUseFetchMovieCategoryList.mockReturnValue({
-      ispending: false,
+      isPending: false,
       isError: false,
       data: movies,
       fetchNextPage,
@@ -92,7 +93,7 @@ describe('CategoryList', () => {
   it('disables the "Load More" button when there is no next page', () => {
     const movies = [{ id: 1, title: 'Movie One' }];
     mockUseFetchMovieCategoryList.mockReturnValue({
-      ispending: false,
+      isPending: false,
       isError: false,
       data: movies,
       fetchNextPage: jest.fn(),
@@ -107,7 +108,7 @@ describe('CategoryList', () => {
   it('shows spinner and disables button while fetching next page', () => {
     const movies = [{ id: 1, title: 'Movie One' }];
     mockUseFetchMovieCategoryList.mockReturnValue({
-      ispending: false,
+      isPending: false,
       isError: false,
       data: movies,
       fetchNextPage: jest.fn(),
@@ -127,7 +128,7 @@ describe('CategoryList', () => {
     const movies = [{ id: 1, title: 'Movie One' }];
 
     mockUseFetchMovieCategoryList.mockReturnValue({
-      ispending: false,
+      isPending: false,
       isError: false,
       data: movies,
       fetchNextPage,

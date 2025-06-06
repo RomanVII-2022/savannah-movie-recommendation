@@ -50,7 +50,7 @@ export const useFetchMovieCategoryList = (category: string) => {
     isFetchingNextPage: result.isFetchingNextPage,
     hasNextPage: result.hasNextPage,
     isFetching: result.isFetching,
-    ispending: result.isPending,
+    isPending: result.isPending,
     isError: result.isError,
     error: result.error,
   };

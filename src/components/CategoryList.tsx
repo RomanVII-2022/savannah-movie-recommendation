@@ -11,10 +11,10 @@ import MovieError from './MovieError';
 export default function CategoryList() {
   const searchParams = useSearchParams();
   const categorySlug = searchParams.get('category') || '';
-  const { data, fetchNextPage, hasNextPage, isFetching, ispending, isError, error } =
+  const { data, fetchNextPage, hasNextPage, isFetching, isPending, isError, error } =
     useFetchMovieCategoryList(categorySlug);
 
-  if (ispending) {
+  if (isPending) {
     return <MovieSkeleton />;
   }
 
@@ -24,9 +24,7 @@ export default function CategoryList() {
 
   return (
     <div className="px-5 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-10 gap-5 overflow-y-auto flex-auto pb-5">
-      {data.map(movie => (
-        <MovieItem key={movie.id} details={movie} />
-      ))}
+      {data?.map(movie => <MovieItem key={movie.id} details={movie} />)}
       {hasNextPage && (
         <div className="col-span-2 md:col-span-4 lg:col-span-5 xl:col-span-7 2xl:col-span-10 justify-self-center">
           <Button
