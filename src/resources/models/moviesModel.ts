@@ -7,7 +7,7 @@ const APIREADACCESSTOKEN = process.env.NEXT_PUBLIC_API_READ_ACCESS_TOKEN;
 
 class MovieModel {
   static async getBoardMovies(category: string): Promise<MovieResponseType> {
-    const response = await baseAxiosInstance.get<MovieResponseType>(`/${category}`, {
+    const response = await baseAxiosInstance.get<MovieResponseType>(`/movie/${category}`, {
       headers: {
         accept: 'application/json',
         Authorization: `Bearer ${APIREADACCESSTOKEN}`,
@@ -23,7 +23,7 @@ class MovieModel {
   ): Promise<MovieResponseType> {
     console.log('url called', `/${category}?page=${pageParam}`);
     const response = await baseAxiosInstance.get<MovieResponseType>(
-      `/${category}?page=${pageParam}`,
+      `/movie/${category}?page=${pageParam}`,
       {
         headers: {
           accept: 'application/json',
@@ -36,12 +36,26 @@ class MovieModel {
   }
 
   static async getMoviesDetails(id: ParamValue): Promise<MovieDetailsType> {
-    const response = await baseAxiosInstance.get<MovieDetailsType>(`/${id}`, {
+    const response = await baseAxiosInstance.get<MovieDetailsType>(`/movie/${id}`, {
       headers: {
         accept: 'application/json',
         Authorization: `Bearer ${APIREADACCESSTOKEN}`,
       },
     });
+
+    return response.data;
+  }
+
+  static async searchMovies(searchQuery: string): Promise<MovieResponseType> {
+    const response = await baseAxiosInstance.get<MovieResponseType>(
+      `/search/movie?query=${searchQuery}`,
+      {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${APIREADACCESSTOKEN}`,
+        },
+      }
+    );
 
     return response.data;
   }

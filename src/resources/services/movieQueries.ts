@@ -10,13 +10,22 @@ export const useFetchMovieBoardList = () => {
       queryKey: ['boardMovieList', category],
       queryFn: () => MovieModel.getBoardMovies(category),
     })),
+    combine: results => {
+      return {
+        data: [
+          { ...results[0].data, categoryTitle: 'Now Playing', slug: 'now_playing' },
+          { ...results[1].data, categoryTitle: 'Top Rated', slug: 'top_rated' },
+          { ...results[2].data, categoryTitle: 'Popular', slug: 'popular' },
+        ],
+        pending: results.some(result => result.isPending),
+        isError: results.some(item => item.isError),
+      };
+    },
   });
   return {
-    categoryItems: [
-      { ...results[0].data, categoryTitle: 'Now Playing', slug: 'now_playing' },
-      { ...results[1].data, categoryTitle: 'Top Rated', slug: 'top_rated' },
-      { ...results[2].data, categoryTitle: 'Popular', slug: 'popular' },
-    ],
+    categoryItems: results.data,
+    categoryPending: results.pending,
+    categoryIsError: results.isError,
   };
 };
 
@@ -41,6 +50,9 @@ export const useFetchMovieCategoryList = (category: string) => {
     isFetchingNextPage: result.isFetchingNextPage,
     hasNextPage: result.hasNextPage,
     isFetching: result.isFetching,
+    ispending: result.isPending,
+    isError: result.isError,
+    error: result.error,
   };
 };
 
@@ -48,6 +60,14 @@ export const useFetchMovieDetails = (id: ParamValue) => {
   const results = useQuery({
     queryKey: ['movieDetails', id],
     queryFn: () => MovieModel.getMoviesDetails(id),
+  });
+  return results;
+};
+
+export const useSearchMovies = (searchQuery: string) => {
+  const results = useQuery({
+    queryKey: ['searchMovie', searchQuery],
+    queryFn: () => MovieModel.searchMovies(searchQuery),
   });
   return results;
 };
